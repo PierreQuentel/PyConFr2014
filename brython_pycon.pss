@@ -1,0 +1,219 @@
+@title Brython - Python dans le navigateur
+@pagenum True
+
+Brython (Python dans le navigateur)
+===================================
+
+<h3 style="padding-top:50px;padding-left:100px;">Pierre Quentel 
+pierre.quentel@gmail.com</h3>
+
+
+../..
+Pourquoi Brython ?
+==================
+
+Brython (Browser Python) a pour objectif de remplacer Javascript par Python 
+comme langage de programmation des navigateurs web. Rien que ça !
+
+- Javascript en quasi monopole sur le navigateur et arrive côté serveur 
+ (node.js)
+- sérieux risque de marginalisation de Python s'il reste absent du navigateur
+- HTML5 alternative aux développements natifs iOS / Android
+
+../..
+Comment utiliser Python dans une page web ?
+===========================================
+
+    <html>
+    
+    <head>
+    <script src="brython.js"></script>
+    </head>
+    
+    <body onload="brython()">
+    
+    <script type="text/python">
+    from browser import alert
+    alert('coucou !')
+    </script>
+    
+    </body>
+    
+    </html>
+
+../..
+Comment ça marche ?
+===================
+
+`<script src="brython.js"></script>`
+
+Le script brython.js introduit le nom "brython" dans l'espace de noms 
+Javascript
+
+`<body onload="brython()">` 
+
+La fonction `brython()` 
+
+- cherche toutes les balises `<script>` avec le type **text/python**
+- génère le code Javascript correspondant
+- l'exécute
+
+../..
+Tester Brython en ligne
+=======================
+
+Le site Brython (brython.info) fournit un éditeur en ligne 
+
+et une console
+
+(messages d'erreur)
+../..
+Quelques exemples
+=================
+
+../..
+Couverture de la syntaxe Python 3
+=================================
+
+**Brython vise une compatibilité à 100% avec Python**
+
+- pas de place pour un nouveau langage intermédiaire entre Python et 
+  Javascript
+- alignement sur la Référence du Langage Python
+
+Couverture de tous les mots-clés (sauf `nonlocal`) et des fonctions et types
+intégrés (sauf `memoryview` et `vars`)
+
+Brython supporte :
+
+- toutes les variantes de `import` (y compris intra package)
+- l'héritage multiple (algorithme C3)
+- les métaclasses
+- les générateurs, y compris `yield from`
+
+../..
+
+Couverture de la bibliothèque standard
+======================================
+
+Réutilisation de dizaines de modules de la distribution standard Python3 sans 
+modification : `datetime, configparser, csv, decimal`, le package 
+`unittest`...
+
+Réécriture en Python ou en Javascript de modules écrits en C dans la 
+distribution CPython (ceux en Python sont copiés de PyPy)
+
+../..
+Interface avec le navigateur
+============================
+
+Des modules spécifiques pour gérer l'interaction avec les éléments et les
+événement DOM dans le package `browser`
+
+    <html>
+    <head>
+    <script src="/brython.js"></script>
+    </head>
+    <body onload="brython()">
+    <script type="text/python">
+    from browser import document, alert
+    
+    def echo(ev):
+        alert(document["zone"].value)
+    
+    # attache la fonction 'echo' à l'événement 'click' sur l'objet
+    # référencé par 'echo'
+    document['echo'].bind('click',echo)
+    </script>
+    
+    <input id="zone">
+    <button id="echo">click !</button>
+    
+    </body>
+    </html>
+
+../..
+Interface avec les librairies Javascript
+========================================
+
+Les noms de l'espace de noms Javascript sont accessibles dans les programmes
+Brython par
+
+    from browser import window
+    bTHREE = window.THREE
+
+../..
+Performances
+============
+Au démarrage du projet, priorité donnée à la compatibilité Python sur la 
+performance
+
+Depuis #6 mois gros travaux d'optimisation (sans compromis sur la 
+compatibilité)
+
+<table>
+<tr>
+<td>Code</td>
+<td>
+    a = 0
+    for i in range(10000000):
+        a += 1
+</td>
+
+<td>
+    a = [0]
+    for i in range(1000000):
+        a[0]= i
+</td>
+</tr>
+
+<tr>
+<td>CPython 3.3</td>
+<td style="text-align:center;">1,45 s</td>
+<td style="text-align:center;">0,16 s</td>
+</tr>
+
+<tr>
+<td>Brython 2.0.0 (19/01/2014)</td>
+<td style="text-align:center;">16 s</td>
+<td style="text-align:center;">9 s</td>
+</tr>
+
+<tr>
+<td>Brython 2.1.0 (19/04)</td>
+<td style="text-align:center;">14 s</td>
+<td style="text-align:center;">12 s</td>
+</tr>
+
+<tr>
+<td>Brython 2.2.1 (15/09)</td>
+<td style="text-align:center;">0,65 s</td>
+<td style="text-align:center;">0,25 s</td>
+</tr>
+
+</table>
+
+../..
+Python dans le navigateur : alternatives
+========================================
+
+Deux types de solutions :
+
+- code Python dans la page web, interprété à la volée par une librairie
+  Javascript : Skulpt et Brython
+
+- code Python dans un script Python, transformé en Javascript par un programme
+  Python : c'est le code Javascript qui est inséré dans la page web
+  Pyjamas, PyJS, Pyjaco, PythonJS, RapydScript, Pyvascript...
+
+
+
+    pourquoi Brython ?
+    comment l'utiliser dans une page web
+    les outils fournis en ligne : éditeur, console
+    quelques exemples (inspirés de ceux fournis sur le site brython.info)
+    la couverture de la syntaxe et de la librairie standard Python 3
+    l'interface avec les objets et événements du navigateur
+    interaction avec les librairies Javascript
+    performance (comparée à Javascript, et à d'autres solutions de conversion Python vers Javascript)
+    comment contribuer
