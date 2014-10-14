@@ -94,7 +94,7 @@ La fonction `brython()`
 
 - cherche toutes les balises `<script>` avec le type **text/python**
 - génère le code Javascript correspondant
-- l'exécute
+- l'exécute (`eval`)
 
 ../..
 Quelques exemples
@@ -358,3 +358,15 @@ Réponse à "python browser" sur Google
 =====================================
 
 <img src="google_python_browser.png" width="600">
+../..
+Comment contribuer ?
+====================
+
+Site de développement : [https://github.com/brython-dev/brython]()
+
+- signaler des bugs
+- pull requests
+
+Participer aux discussions sur Google Group
+
+Développer des applis en Brython et les faire connaitre
