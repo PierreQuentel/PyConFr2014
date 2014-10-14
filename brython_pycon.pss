@@ -12,34 +12,72 @@ pierre.quentel@gmail.com</h3>
 Pourquoi Brython ?
 ==================
 
-Brython (Browser Python) a pour objectif de remplacer Javascript par Python 
-comme langage de programmation des navigateurs web. Rien que ça !
+**Brython (Browser Python) a pour objectif de remplacer Javascript par Python 
+comme langage de programmation des navigateurs web**
 
 - Javascript en quasi monopole sur le navigateur et arrive côté serveur 
  (node.js)
+ - en pratique les navigateurs ne supportent que Javascript
+ - mais le Document Object Model du W3C est explicitement indépendant de tout 
+   langage
+- syntaxe Javascript plus lourde que Python
 - sérieux risque de marginalisation de Python s'il reste absent du navigateur
 - HTML5 alternative aux développements natifs iOS / Android
 
 ../..
-Comment utiliser Python dans une page web ?
-===========================================
+Pourquoi Brython ?
+==================
 
-    <html>
-    
-    <head>
-    <script src="brython.js"></script>
-    </head>
-    
-    <body onload="brython()">
-    
+Au lancement du projet (printemps 2012) pas de solution satisfaisante :
+
+- Skulpt : console Python dans le navigateur, mais pas d'API pour programmer 
+  des applications Web client
+
+- PyJS (ex-Pyjamas) : port de GWT, cycle de développement plus lourd
+
+../..
+Objectifs
+=========
+
+Développer en Python aussi simplement qu'en Javascript : code Python intégré
+dans la page HTML
+
     <script type="text/python">
-    from browser import alert
-    alert('coucou !')
+    print("Python c'est mieux que Javascript")
     </script>
-    
-    </body>
-    
-    </html>
+
+une interface compatible avec le Document Object Model
+
+    element = document.getElementById("element_id")
+
+mais avec des alternatives plus pythoniques
+
+    element = document["element_id"]
+
+../..
+Utiliser Python dans une page HTML
+==================================
+
+<b><pre style="background-color:#FFF;color:#66F;padding:10px;">
+&lt;html&gt;
+
+&lt;head&gt;
+<br><span style="background-color:#FF0;"> &lt;script src="brython.js"&gt;&lt;/script&gt;
+</span>
+<br> &lt;/head&gt;
+
+&lt;body <span style="background-color:#FF0;">onload="brython()"</span>&gt;
+
+&lt;script <span style="background-color:#FF0;">type="text/python"</span>&gt;
+<br> from browser import alert
+<br> alert('coucou !')
+<br> &lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+</pre></b></blockquote>
 
 ../..
 Comment ça marche ?
@@ -59,27 +97,45 @@ La fonction `brython()`
 - l'exécute
 
 ../..
-Tester Brython en ligne
-=======================
+Quelques exemples
+=================
 
-Le site Brython (brython.info) fournit un éditeur en ligne 
+Accès à un élément DOM
 
-et une console
+    <input id="trace">
 
-(messages d'erreur)
+Code Python
+
+    from browser import document
+    elt = document["trace"]
+
 ../..
 Quelques exemples
 =================
 
+Attacher un gestionnaire d'événement
+
+    <select id="pays">
+
+Code Python
+
+    from browser import document, alert
+    
+    def change_pays(ev):
+        sel = ev.target
+        alert(sel.options[sel.selectedIndex].value)
+    
+    document["pays"].bind('change', change_pays)
+
 ../..
-Couverture de la syntaxe Python 3
-=================================
+Couverture de la syntaxe Python
+===============================
 
 **Brython vise une compatibilité à 100% avec Python**
 
 - pas de place pour un nouveau langage intermédiaire entre Python et 
   Javascript
-- alignement sur la Référence du Langage Python
+- alignement sur la Référence du Langage Python (syntaxe Python 3)
 
 Couverture de tous les mots-clés (sauf `nonlocal`) et des fonctions et types
 intégrés (sauf `memoryview` et `vars`)
@@ -108,39 +164,122 @@ Interface avec le navigateur
 ============================
 
 Des modules spécifiques pour gérer l'interaction avec les éléments et les
-événement DOM dans le package `browser`
+événements DOM dans le package `browser`
+
+Objets
+------
+
+- `document` : accès aux éléments de la page
+- `window` : accès au navigateur (géoloc...) et à l'espace de noms 
+   Javascript
+- `alert` : message d'alerte
+
+Modules
+-------
+
+- `browser.html` : balises HTML
+- `browser.svg` : dessin vectoriel
+- stockage local : `browser.local_storage`
+- `browser.ajax`
+../..
+Module `browser.html`
+=====================
+
+Construction d'une boite de sélection à partir d'une liste
+
+    from browser import document, html
+        
+    pays = ['France', 'Italie', 'Russie']
+    
+    sel = html.SELECT()
+    for _pays in pays:
+        sel <= html.OPTION(_pays)
+    
+    document <= sel
+
+`<=` équivaut à `appendChild()`
+
+../..
+Module `browser.html`
+=====================
+
+Construction d'une table à partir d'un dictionnaire
+
+    from browser import document, html
+    
+    capitales = {'France':'Paris', 
+        'Italie':'Rome', 
+        'Russie':'Moscou'}
+    
+    table = html.TABLE()
+    table <= html.TR(html.TH('Pays')+html.TH('Capitale'))
+    for pays, ville in capitales.items():
+        table <= html.TR(html.TD(pays)+html.TD(ville))
+    
+    document <= table
+
+../..
+Interface avec Javascript
+=========================
+
+Brython possède une interface pour utiliser les librairies Javascript,
+par exemple :
+
+- généralistes : `jQuery`
+- UI : `jQueryUI`
+- animations 3D : `three.js`
+- éditeur de programmes : `ace`
+- dessin vectoriel : `Raphael`
+- graphes : `Highcharts`
+
+Les espaces de noms Javascript et Brython sont strictement séparés
+
+L'interface passe par l'objet `window` du module `browser`
+../..
+Accès depuis Brython aux librairies Javascript
+==============================================
 
     <html>
     <head>
-    <script src="/brython.js"></script>
+    <script src="three.min.js"></script>
+    <script type="text/javascript" src="brython.js"></script>
     </head>
+    
     <body onload="brython()">
+    
     <script type="text/python">
-    from browser import document, alert
+    from browser import window
+    from javascript import JSConstructor
     
-    def echo(ev):
-        alert(document["zone"].value)
+    THREE = window.THREE
     
-    # attache la fonction 'echo' à l'événement 'click' sur l'objet
-    # référencé par 'echo'
-    document['echo'].bind('click',echo)
+    cameraC = JSConstructor(THREE.PerspectiveCamera)
+    camera = cameraC( 75, 1, 1, 10000 )
+    camera.position.z = 1000;
     </script>
-    
-    <input id="zone">
-    <button id="echo">click !</button>
     
     </body>
     </html>
 
+`JSConstructor` permet d'utiliser les constructeurs d'objets Javascript comme
+des classes Python
 ../..
-Interface avec les librairies Javascript
-========================================
+Accès depuis Javascript aux objets Python
+=========================================
 
-Les noms de l'espace de noms Javascript sont accessibles dans les programmes
-Brython par
+Appel d'une fonction Python depuis une balise
+
+    <button onclick="info(this)">
+
+La fonction `info` est insérée dans l'espace de noms Javascript via l'objet
+`window`
 
     from browser import window
-    bTHREE = window.THREE
+    
+    def info(ev):
+        alert("clic sur l'élement %s" %ev)
+    
+    window.info = info
 
 ../..
 Performances
@@ -194,26 +333,28 @@ compatibilité)
 </table>
 
 ../..
-Python dans le navigateur : alternatives
-========================================
+Tester Brython en ligne
+=======================
 
-Deux types de solutions :
+Le site Brython (brython.info) fournit un éditeur en ligne 
 
-- code Python dans la page web, interprété à la volée par une librairie
-  Javascript : Skulpt et Brython
+et une console interactive
 
-- code Python dans un script Python, transformé en Javascript par un programme
-  Python : c'est le code Javascript qui est inséré dans la page web
-  Pyjamas, PyJS, Pyjaco, PythonJS, RapydScript, Pyvascript...
+../..
+Popularité
+==========
 
+Membres au 12/10/2014
 
+- Brython : 211
+- Skulpt : 171
+- PyJS-users : 199
+- PyJS-devel : 16
+- RapydScript : 47
+- PythonJS : 22
 
-    pourquoi Brython ?
-    comment l'utiliser dans une page web
-    les outils fournis en ligne : éditeur, console
-    quelques exemples (inspirés de ceux fournis sur le site brython.info)
-    la couverture de la syntaxe et de la librairie standard Python 3
-    l'interface avec les objets et événements du navigateur
-    interaction avec les librairies Javascript
-    performance (comparée à Javascript, et à d'autres solutions de conversion Python vers Javascript)
-    comment contribuer
+../..
+Réponse à "python browser" sur Google
+=====================================
+
+<img src="google_python_browser.png" width="600">
