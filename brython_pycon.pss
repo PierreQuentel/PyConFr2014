@@ -332,6 +332,8 @@ compatibilité)
 
 </table>
 
+... mais encore beaucoup de travail : 160 fois moins de pystones que CPython
+
 ../..
 Tester Brython en ligne
 =======================
