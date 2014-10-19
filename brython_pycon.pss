@@ -15,25 +15,29 @@ Pourquoi Brython ?
 **Brython (Browser Python) a pour objectif de remplacer Javascript par Python 
 comme langage de programmation des navigateurs web**
 
-- Javascript en quasi monopole sur le navigateur et arrive côté serveur 
- (node.js)
+- sérieux risque de marginalisation de Python s'il reste absent du navigateur
  - en pratique les navigateurs ne supportent que Javascript
  - mais le Document Object Model du W3C est explicitement indépendant de tout 
    langage
-- syntaxe Javascript plus lourde que Python
-- sérieux risque de marginalisation de Python s'il reste absent du navigateur
-- HTML5 alternative aux développements natifs iOS / Android
+ - avec HTML5 les applications web client peuvent devenir une alternative 
+   aux développements natifs iOS / Android
+ - Javascript arrive côté serveur (node.js)
 
+- syntaxe Javascript plus lourde que Python
+ - d'où le succès de jQuery
 ../..
 Pourquoi Brython ?
 ==================
 
-Au lancement du projet (printemps 2012) pas de solution satisfaisante :
+Au démarrage du projet (printemps 2012) pas de solution satisfaisante :
 
-- Skulpt : console Python dans le navigateur, mais pas d'API pour programmer 
-  des applications Web client
+- Skulpt : console Python v2 dans le navigateur, mais pas d'interface avec le
+  navigateur (API DOM) pour programmer des applications Web client
 
 - PyJS (ex-Pyjamas) : port de GWT, cycle de développement plus lourd
+ - écriture d'un programme Python avec des classes spécifiques
+ - transformation en Javascript
+ - insertion dans la page web du Javascript généré
 
 ../..
 Objectifs
@@ -45,6 +49,10 @@ dans la page HTML
     <script type="text/python">
     print("Python c'est mieux que Javascript")
     </script>
+
+ou par insertion d'un script
+
+    <script type="text/python" src="script.py"></script>
 
 une interface compatible avec le Document Object Model
 
@@ -92,40 +100,9 @@ Javascript
 
 La fonction `brython()` 
 
-- cherche toutes les balises `<script>` avec le type **text/python**
-- génère le code Javascript correspondant
+- cherche toutes les balises `<script>` avec le type **"text/python"**
+- génère le code Javascript correspondant à partir du code source Python
 - l'exécute (`eval`)
-
-../..
-Quelques exemples
-=================
-
-Accès à un élément DOM
-
-    <input id="trace">
-
-Code Python
-
-    from browser import document
-    elt = document["trace"]
-
-../..
-Quelques exemples
-=================
-
-Attacher un gestionnaire d'événement
-
-    <select id="pays">
-
-Code Python
-
-    from browser import document, alert
-    
-    def change_pays(ev):
-        sel = ev.target
-        alert(sel.options[sel.selectedIndex].value)
-    
-    document["pays"].bind('change', change_pays)
 
 ../..
 Couverture de la syntaxe Python
@@ -181,6 +158,37 @@ Modules
 - `browser.svg` : dessin vectoriel
 - stockage local : `browser.local_storage`
 - `browser.ajax`
+../..
+Quelques exemples
+=================
+
+Accès à un élément DOM
+
+    <input id="trace">
+
+Code Python
+
+    from browser import document
+    elt = document["trace"]
+
+../..
+Quelques exemples
+=================
+
+Attacher un gestionnaire d'événement
+
+    <select id="pays">
+
+Code Python
+
+    from browser import document, alert
+    
+    def change_pays(ev):
+        sel = ev.target
+        alert(sel.options[sel.selectedIndex].value)
+    
+    document["pays"].bind('change', change_pays)
+
 ../..
 Module `browser.html`
 =====================
@@ -313,6 +321,9 @@ compatibilité)
 </tr>
 
 <tr>
+<td colspan="3">&nbsp;</td>
+</tr>
+<tr>
 <td>Brython 2.0.0 (19/01/2014)</td>
 <td style="text-align:center;">16 s</td>
 <td style="text-align:center;">9 s</td>
@@ -364,11 +375,25 @@ Réponse à "python browser" sur Google
 Comment contribuer ?
 ====================
 
-Site de développement : [https://github.com/brython-dev/brython]()
+Site de développement : [https://github.com/brython-dev/brython]
+(https://github.com/brython-dev/brython)
 
 - signaler des bugs
-- pull requests
+- proposer du code
 
 Participer aux discussions sur Google Group
 
+- ça manque de Français !
+
 Développer des applis en Brython et les faire connaitre
+
+- par exemple améliorer ce moteur de présentation (Brython slideshow)
+
+Contribuer à brython-in-the-classroom ([http://pyschool.net]
+(http://pyschool.net)) : site pour l'enseignement de Python, permet de tester, 
+enregistrer, partager des programmes
+../..
+Le mot de la fin...
+===================
+
+<img src="guido.png">
