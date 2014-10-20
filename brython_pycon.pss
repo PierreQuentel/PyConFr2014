@@ -4,8 +4,13 @@
 Brython (Python dans le navigateur)
 ===================================
 
-<h3 style="padding-top:50px;padding-left:100px;">Pierre Quentel 
-pierre.quentel@gmail.com</h3>
+<h3 style="padding-top:50px;padding-left:100px;">
+Pierre Quentel
+
+PyConFR le 26 octobre 2014
+
+</h3>
+
 
 
 ../..
@@ -15,29 +20,107 @@ Pourquoi Brython ?
 **Brython (Browser Python) a pour objectif de remplacer Javascript par Python 
 comme langage de programmation des navigateurs web**
 
-- sérieux risque de marginalisation de Python s'il reste absent du navigateur
- - en pratique les navigateurs ne supportent que Javascript
- - mais le Document Object Model du W3C est explicitement indépendant de tout 
-   langage
- - avec HTML5 les applications web client peuvent devenir une alternative 
-   aux développements natifs iOS / Android
- - Javascript arrive côté serveur (node.js)
-
-- syntaxe Javascript plus lourde que Python
- - d'où le succès de jQuery
 ../..
 Pourquoi Brython ?
 ==================
 
-Au démarrage du projet (printemps 2012) pas de solution satisfaisante :
+**Brython (Browser Python) a pour objectif de remplacer Javascript par Python 
+comme langage de programmation des navigateurs web**
+
+- Javascript est verbeux et bizarre (this..)
+ - d'où le succès des frameworks jQuery, angular.js, prototype...
+
+../..
+Pourquoi Brython ?
+==================
+
+**Brython (Browser Python) a pour objectif de remplacer Javascript par Python 
+comme langage de programmation des navigateurs web**
+
+- Javascript est verbeux et bizarre (this..)
+ - d'où le succès des frameworks jQuery, angular.js, prototype...
+
+- sérieux risque de marginalisation de Python par Javascript
+ 
+ - avec HTML5, de plus en plus de webapps donc de développeurs Javascript
+ - JS arrive côté serveur (node.js)
+
+../..
+Pourquoi Brython ?
+==================
+
+**Brython (Browser Python) a pour objectif de remplacer Javascript par Python 
+comme langage de programmation des navigateurs web**
+
+- Javascript est verbeux et bizarre (this..)
+ - d'où le succès des frameworks jQuery, angular.js, prototype...
+
+- sérieux risque de marginalisation de Python par Javascript
+ 
+ - avec HTML5, de plus en plus de webapps donc de développeurs Javascript
+ - JS arrive côté serveur (node.js)
+
+- aucune fatalité au monopole de Javascript sur le navigateur
+
+ - le DOM est explicitement indépendant de tout langage
+../..
+Avant Brython
+=============
+
+Au démarrage du projet (printemps 2012) :
 
 - Skulpt : console Python v2 dans le navigateur, mais pas d'interface avec le
   navigateur (API DOM) pour programmer des applications Web client
 
 - PyJS (ex-Pyjamas) : port de GWT, cycle de développement plus lourd
- - écriture d'un programme Python avec des classes spécifiques
- - transformation en Javascript
- - insertion dans la page web du Javascript généré
+
+../..
+Objectifs
+=========
+
+Développer en Python aussi simplement qu'en Javascript : code Python intégré
+dans la page HTML
+
+    <script type="text/python">
+    print("Python c'est mieux que Javascript")
+    </script>
+
+
+../..
+Objectifs
+=========
+
+Développer en Python aussi simplement qu'en Javascript : code Python intégré
+dans la page HTML
+
+    <script type="text/python">
+    print("Python c'est mieux que Javascript")
+    </script>
+
+ou par insertion d'un script
+
+    <script type="text/python" src="script.py"></script>
+
+
+../..
+Objectifs
+=========
+
+Développer en Python aussi simplement qu'en Javascript : code Python intégré
+dans la page HTML
+
+    <script type="text/python">
+    print("Python c'est mieux que Javascript")
+    </script>
+
+ou par insertion d'un script
+
+    <script type="text/python" src="script.py"></script>
+
+une interface compatible avec le Document Object Model
+
+    element = document.getElementById("element_id")
+
 
 ../..
 Objectifs
@@ -62,11 +145,15 @@ mais avec des alternatives plus pythoniques
 
     element = document["element_id"]
 
+
 ../..
 Utiliser Python dans une page HTML
 ==================================
 
-<b><pre style="background-color:#FFF;color:#66F;padding:10px;">
+<table>
+<tr>
+<td>
+<pre style="background-color:#FFF;color:#66F;padding:10px;width:380px;font-size:17px;"><b>
 &lt;html&gt;
 
 &lt;head&gt;
@@ -84,25 +171,153 @@ Utiliser Python dans une page HTML
 &lt;/body&gt;
 
 &lt;/html&gt;
+</b></pre>
+</td>
+<td>
+<pre style="color:#FFF;padding:10px;width:330px;font-size:17px;"><b>
+&nbsp;
 
-</pre></b></blockquote>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+</b></pre>
+</td>
+</tr>
+</table>
+../..
+Utiliser Python dans une page HTML
+==================================
+
+<table>
+<tr>
+<td>
+<pre style="background-color:#FFF;color:#66F;padding:10px;width:380px;font-size:17px;"><b>
+&lt;html&gt;
+
+&lt;head&gt;
+<br><span style="background-color:#FF0;"> &lt;script src="brython.js"&gt;&lt;/script&gt;
+</span>
+<br> &lt;/head&gt;
+
+&lt;body <span style="background-color:#FF0;">onload="brython()"</span>&gt;
+
+&lt;script <span style="background-color:#FF0;">type="text/python"</span>&gt;
+<br> from browser import alert
+<br> alert('coucou !')
+<br> &lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</b></pre>
+</td>
+<td>
+<pre style="color:#FFF;padding:10px;width:330px;font-size:17px;"><b>
+&nbsp;
+
+&nbsp;
+<br>charge Brython, met le nom **brython**
+&nbsp;
+<br>dans l'espace de noms Javascript
+
+&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+
+&nbsp;
+
+&nbsp;
+</b></pre>
+</td>
+</tr>
+</table>
 
 ../..
-Comment ça marche ?
-===================
+Utiliser Python dans une page HTML
+==================================
 
-`<script src="brython.js"></script>`
+<table>
+<tr>
+<td>
+<pre style="background-color:#FFF;color:#66F;padding:10px;width:380px;font-size:17px;"><b>
+&lt;html&gt;
 
-Le script brython.js introduit le nom "brython" dans l'espace de noms 
-Javascript
+&lt;head&gt;
+<br><span style="background-color:#FF0;"> &lt;script src="brython.js"&gt;&lt;/script&gt;
+</span>
+<br> &lt;/head&gt;
 
-`<body onload="brython()">` 
+&lt;body <span style="background-color:#FF0;">onload="brython()"</span>&gt;
 
-La fonction `brython()` 
+&lt;script <span style="background-color:#FF0;">type="text/python"</span>&gt;
+<br> from browser import alert
+<br> alert('coucou !')
+<br> &lt;/script&gt;
 
-- cherche toutes les balises `<script>` avec le type **"text/python"**
-- génère le code Javascript correspondant à partir du code source Python
-- l'exécute (`eval`)
+&lt;/body&gt;
+
+&lt;/html&gt;
+</b></pre>
+</td>
+<td>
+<pre style="color:#FFF;padding:10px;width:330px;font-size:17px;"><b>
+&nbsp;
+
+&nbsp;
+<br>charge Brython, met le nom **brython**
+&nbsp;
+<br>dans l'espace de noms Javascript
+
+la fonction brython()
+<br>- cherche les scripts avec le type
+<br> "text/python"
+<br>- traduit le code source Python
+<br> en code Javascript
+<br>- l'exécute par eval()
+
+&nbsp;
+
+&nbsp;
+</b></pre>
+</td>
+</tr>
+</table>
+
+../..
+Couverture de la syntaxe Python
+===============================
+
+**Brython vise une compatibilité à 100% avec Python**
+
+- pas de place pour un nouveau langage intermédiaire entre Python et 
+  Javascript
+- alignement sur la Référence du Langage Python (syntaxe Python 3)
+
+../..
+Couverture de la syntaxe Python
+===============================
+
+**Brython vise une compatibilité à 100% avec Python**
+
+- pas de place pour un nouveau langage intermédiaire entre Python et 
+  Javascript
+- alignement sur la Référence du Langage Python (syntaxe Python 3)
+
+Couverture de tous les mots-clés (sauf `nonlocal`) et des fonctions et types
+intégrés (sauf `memoryview` et `vars`)
+
 
 ../..
 Couverture de la syntaxe Python
@@ -122,7 +337,9 @@ Brython supporte :
 - toutes les variantes de `import` (y compris intra package)
 - l'héritage multiple (algorithme C3)
 - les métaclasses
+- les compréhensions
 - les générateurs, y compris `yield from`
+
 
 ../..
 
@@ -134,7 +351,9 @@ modification : `datetime, configparser, csv, decimal`, le package
 `unittest`...
 
 Réécriture en Python ou en Javascript de modules écrits en C dans la 
-distribution CPython (ceux en Python sont copiés de PyPy)
+distribution CPython
+
+- ceux en Python sont copiés de PyPy
 
 ../..
 Interface avec le navigateur
@@ -208,25 +427,6 @@ Construction d'une boite de sélection à partir d'une liste
 `<=` équivaut à `appendChild()`
 
 ../..
-Module `browser.html`
-=====================
-
-Construction d'une table à partir d'un dictionnaire
-
-    from browser import document, html
-    
-    capitales = {'France':'Paris', 
-        'Italie':'Rome', 
-        'Russie':'Moscou'}
-    
-    table = html.TABLE()
-    table <= html.TR(html.TH('Pays')+html.TH('Capitale'))
-    for pays, ville in capitales.items():
-        table <= html.TR(html.TD(pays)+html.TD(ville))
-    
-    document <= table
-
-../..
 Interface avec Javascript
 =========================
 
@@ -247,30 +447,30 @@ L'interface passe par l'objet `window` du module `browser`
 Accès depuis Brython aux librairies Javascript
 ==============================================
 
-    <html>
-    <head>
-    <script src="three.min.js"></script>
-    <script type="text/javascript" src="brython.js"></script>
-    </head>
-    
-    <body onload="brython()">
-    
-    <script type="text/python">
-    from browser import window
-    from javascript import JSConstructor
-    
-    THREE = window.THREE
-    
-    cameraC = JSConstructor(THREE.PerspectiveCamera)
-    camera = cameraC( 75, 1, 1, 10000 )
-    camera.position.z = 1000;
-    </script>
-    
-    </body>
-    </html>
+<pre style="background-color:#FFF;color:#2A4480;padding:10px;font-size:12px;width:450px;">
+&lt;html&gt;
+<br>&lt;head&gt;
+<br>&lt;meta charset="utf-8"&gt;
+<br><span style="background-color:yellow;">&lt;script src="raphael-min.js"&gt;&lt;/script&gt;</span>
+<br>&lt;script type="text/javascript" src="/src/brython.js"&gt;&lt;/script&gt;
+<br>&lt;/head&gt;
 
-`JSConstructor` permet d'utiliser les constructeurs d'objets Javascript comme
-des classes Python
+<br>&lt;body onload="brython()"&gt;
+
+<br>&lt;script type="text/python"&gt;
+<br><span style="background-color:yellow;">from browser import window
+<br>bRaphael = window.Raphael</span>
+<br>
+<br>&#35; Creates canvas 320 × 200 at 10, 50
+<br>paper = bRaphael(410, 50, 320, 200)
+<br>
+<br>&#35; Creates circle at x = 50, y = 40, with radius 10
+<br>circle = paper.circle(50, 40, 10)
+<br>&lt;/script&gt;
+<br>
+<br>&lt;/body&gt;
+<br>&lt;/html&gt;
+</pre>
 ../..
 Accès depuis Javascript aux objets Python
 =========================================
@@ -315,30 +515,9 @@ compatibilité)
 </tr>
 
 <tr>
-<td>CPython 3.3</td>
-<td style="text-align:center;">1,45 s</td>
-<td style="text-align:center;">0,16 s</td>
-</tr>
-
-<tr>
-<td colspan="3">&nbsp;</td>
-</tr>
-<tr>
-<td>Brython 2.0.0 (19/01/2014)</td>
-<td style="text-align:center;">16 s</td>
-<td style="text-align:center;">9 s</td>
-</tr>
-
-<tr>
-<td>Brython 2.1.0 (19/04)</td>
-<td style="text-align:center;">14 s</td>
-<td style="text-align:center;">12 s</td>
-</tr>
-
-<tr>
-<td>Brython 2.2.1 (15/09)</td>
-<td style="text-align:center;">0,65 s</td>
-<td style="text-align:center;">0,25 s</td>
+<td>Temps (ms)</td>
+<td><img src="bench1.png" width="300"></td>
+<td><img src="bench2.png" width="285"></td>
 </tr>
 
 </table>
@@ -346,12 +525,22 @@ compatibilité)
 ... mais encore beaucoup de travail : 160 fois moins de pystones que CPython
 
 ../..
-Tester Brython en ligne
+Tester Brython en ligne : éditeur
 =======================
 
-Le site Brython (brython.info) fournit un éditeur en ligne 
+<img src="editor.png" height=430>
 
-et une console interactive
+../..
+Tester Brython en ligne : console
+=======================
+
+<img src="console.png" height=430>
+
+../..
+Tester Brython en ligne : galerie
+=======================
+
+<img src="gallery.png" height=430>
 
 ../..
 Popularité
@@ -367,7 +556,7 @@ Membres au 12/10/2014
 - PythonJS : 22
 
 ../..
-Réponse à "python browser" sur Google
+Réponses à "python browser" sur Google
 =====================================
 
 <img src="google_python_browser.png" width="600">
@@ -380,6 +569,7 @@ Site de développement : [https://github.com/brython-dev/brython]
 
 - signaler des bugs
 - proposer du code
+- améliorer la doc
 
 Participer aux discussions sur Google Group
 
@@ -388,10 +578,14 @@ Participer aux discussions sur Google Group
 Développer des applis en Brython et les faire connaitre
 
 - par exemple améliorer ce moteur de présentation (Brython slideshow)
+../..
+pyschool.net
+============
 
-Contribuer à brython-in-the-classroom ([http://pyschool.net]
-(http://pyschool.net)) : site pour l'enseignement de Python, permet de tester, 
-enregistrer, partager des programmes
+<img src="pyschool.png" width=750>
+
+développé sur Github : brython-in-the-classroom
+
 ../..
 Le mot de la fin...
 ===================
