@@ -515,9 +515,9 @@ compatibilité)
 </tr>
 
 <tr>
-<td>Temps (ms)</td>
-<td><img src="bench1.png" width="300"></td>
-<td><img src="bench2.png" width="285"></td>
+<td>Ratio / CPython 3.3</td>
+<td style="padding-left:30px;"><img src="bench1.png" width="350"></td>
+<td style="padding-left:30px;"><img src="bench2.png" width="350"></td>
 </tr>
 
 </table>
@@ -528,20 +528,24 @@ compatibilité)
 Tester Brython en ligne : éditeur
 =======================
 
-<img src="editor.png" height=430>
-
+<div style="text-align:center;">
+<img src="editor.png" height=470>
+</div>
 ../..
 Tester Brython en ligne : console
 =======================
 
-<img src="console.png" height=430>
+<div style="text-align:center;">
+<img src="console.png" height=470>
+</div>
 
 ../..
 Tester Brython en ligne : galerie
 =======================
 
-<img src="gallery.png" height=430>
-
+<div style="text-align:center;">
+<img src="gallery.png" height=470>
+</div>
 ../..
 Popularité
 ==========
@@ -559,7 +563,9 @@ Membres au 12/10/2014
 Réponses à "python browser" sur Google
 =====================================
 
-<img src="google_python_browser.png" width="600">
+<div style="text-align:center;">
+<img src="google_python_browser.png" width="630">
+</div>
 ../..
 Comment contribuer ?
 ====================
@@ -582,7 +588,7 @@ Développer des applis en Brython et les faire connaitre
 pyschool.net
 ============
 
-<img src="pyschool.png" width=750>
+<img src="pyschool.png" width=800>
 
 développé sur Github : brython-in-the-classroom
 
@@ -590,4 +596,4 @@ développé sur Github : brython-in-the-classroom
 Le mot de la fin...
 ===================
 
-<img src="guido.png">
+<center><img src="guido.png" style="margin-top:40px;"></center>

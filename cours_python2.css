@@ -12,7 +12,6 @@ body,td {font-family: Arial;
     padding-top:5px;
     padding-left:40px;
     padding-right:40px;
-    min-height:600px;
     font-size:18px;
     background:linear-gradient(#355C9E,#052C6E);
 }
@@ -53,7 +52,7 @@ strong{
     text-align: center;
     position:absolute;
     bottom:25px;
-    width:790px;
+    width:90%;
     font-weight:bold;
     color:#7AA2E4;
     
@@ -63,7 +62,7 @@ strong{
     text-align: center;
     position:absolute;
     bottom:5px;
-    width:790px;
+    width:90%;
     font-weight:bold;
     color:#FFB740;
     background-color:#7AA2E4;
