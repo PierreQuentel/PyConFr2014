@@ -550,6 +550,9 @@ Tester Brython en ligne : galerie
 Popularité
 ==========
 
+<table>
+<tr>
+<td style="font-size:18px;">
 Membres au 12/10/2014
 
 - Brython : 211
@@ -558,14 +561,31 @@ Membres au 12/10/2014
 - PyJS-devel : 16
 - RapydScript : 47
 - PythonJS : 22
-
+</td>
+</tr>
+</table>
 ../..
-Réponses à "python browser" sur Google
-=====================================
+Popularité
+==========
 
-<div style="text-align:center;">
+<table>
+<tr>
+<td valign="top" style="font-size:18px;">
+Membres au 12/10/2014
+
+- Brython : 211
+- Skulpt : 171
+- PyJS-users : 199
+- PyJS-devel : 16
+- RapydScript : 47
+- PythonJS : 22
+</td>
+
+<td style="padding-left:40px;">
 <img src="google_python_browser.png" width="630">
-</div>
+</td>
+</tr>
+</table>
 ../..
 Comment contribuer ?
 ====================
@@ -597,3 +617,4 @@ Le mot de la fin...
 ===================
 
 <center><img src="guido.png" style="margin-top:40px;"></center>
+
