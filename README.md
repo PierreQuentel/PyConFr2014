@@ -7,8 +7,8 @@ Réalisée à partir du module [slideshow]
 
 Installation
 ------------
-Lancer le serveur (python server.py) et avec un navigateur se connecter sur 
-http://localhost:8001
+Lancer le serveur (python server.py), il ouvre le navigateur par défaut et
+lance la présentation sur localhost:8001
 
 La navigation utilise les flèches de déplament (haut, bas) ; on peut aussi
 cliquer sur la bande horizontale en bas de diapo
