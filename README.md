@@ -10,8 +10,5 @@ Installation
 Lancer le serveur (python server.py) et avec un navigateur se connecter sur 
 http://localhost:8001
 
-Sélectionner un des fichiers html pour accéder à l'un des cours
-
 La navigation utilise les flèches de déplament (haut, bas) ; on peut aussi
-cliquer sur la bande horizontale en bas de diapo, ou utiliser le menu 
-déroulant en haut de page s'il y en a un
+cliquer sur la bande horizontale en bas de diapo
